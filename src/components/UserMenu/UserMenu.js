@@ -1,10 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import authSelectors from '../../redux/auth/auth-selectors';
 import authOperations from '../../redux/auth/auth-operations';
 import avatar from './avatar.png';
 
-const UserMenu = ({ avatar, name, onLogout }) => {
+export default function UserMenu() {
+  const name = useSelector(authSelectors.getUserName);
+  const dispatch = useDispatch();
+  const onLogout = useCallback(() => dispatch(authOperations.logout()), [
+    dispatch,
+  ]);
+
   return (
     <div>
       <img src={avatar} alt="" width="32" />
@@ -14,15 +20,4 @@ const UserMenu = ({ avatar, name, onLogout }) => {
       </button>
     </div>
   );
-};
-
-const mapStateToProps = state => ({
-  name: authSelectors.getUserName(state),
-  avatar,
-});
-
-const mapDispatchToProps = {
-  onLogout: authOperations.logout,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+}
