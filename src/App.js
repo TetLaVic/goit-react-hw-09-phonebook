@@ -1,6 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import './App.css';
-// import { v4 as genId } from 'uuid';
 import { Switch, Route } from 'react-router-dom';
 import AppBar from './components/AppBar';
 // import ContactsPage from './pages/Contacts';
@@ -25,15 +24,8 @@ const ContactsPage = lazy(() =>
   import('./pages/Contacts' /*WebpackChunkName: ContactsPage */),
 );
 
-// const mapDispatchToProps = {
-//   onGetCurrentUser: authOperations.getCurrentUser,
-// };
-
-function App() {
+export default function App() {
   const dispatch = useDispatch();
-  // componentDidMount() {
-  //   this.props.onGetCurrentUser();
-  // }
 
   useEffect(() => {
     dispatch(authOperations.getCurrentUser());
@@ -59,5 +51,3 @@ function App() {
     </>
   );
 }
-
-export default App;
