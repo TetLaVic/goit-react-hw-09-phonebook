@@ -1,75 +1,89 @@
-import { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import { v4 as genId } from 'uuid';
 import PropTypes from 'prop-types';
 import styles from './ContactForm.module.css';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import operations from '../../redux/ContactForm/ContactForm-operations';
 
-class ContactForm extends Component {
-  state = { name: '', number: '' };
+export default function ContactForm() {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  reset = () => {
-    this.setState({ name: '', number: '' });
+  const dispatch = useDispatch();
+
+  const onSubmit = useCallback(
+    contact => dispatch(operations.addContact(contact)),
+    [dispatch],
+  );
+
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
-  handleChange = event => {
+  const handleChange = event => {
     event.preventDefault();
     const { name, value } = event.currentTarget;
-    const currentState = this.state;
-    const updateState = { [name]: value };
-    this.setState({ ...currentState, ...updateState });
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        console.warn(`Field with a type ${name} cannot be processed.`);
+    }
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
-  };
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      onSubmit({ name, number });
+      reset();
+    },
+    [onSubmit, name, number],
+  );
 
-  render() {
-    const nameInputId = genId();
-    const telInputId = genId();
+  const nameInputId = genId();
+  const telInputId = genId();
 
-    return (
-      <form onSubmit={this.handleSubmit} className={styles.contactForm}>
-        <label htmlFor={nameInputId} className={styles.labelForm}>
-          Name
-          <input
-            type="text"
-            name="name"
-            id={nameInputId}
-            value={this.state.name}
-            onChange={this.handleChange}
-            className={styles.inputForm}
-          />
-        </label>
+  return (
+    <form onSubmit={handleSubmit} className={styles.contactForm}>
+      <label htmlFor={nameInputId} className={styles.labelForm}>
+        Name
+        <input
+          type="text"
+          name="name"
+          id={nameInputId}
+          value={name}
+          onChange={handleChange}
+          className={styles.inputForm}
+        />
+      </label>
 
-        <label htmlFor={telInputId} className={styles.labelForm}>
-          Number
-          <input
-            type="tel"
-            name="number"
-            id={telInputId}
-            value={this.state.number}
-            onChange={this.handleChange}
-            className={styles.inputForm}
-          />
-        </label>
-        <button type="submit" className={styles.buttonForm}>
-          Add contact
-        </button>
-      </form>
-    );
-  }
+      <label htmlFor={telInputId} className={styles.labelForm}>
+        Number
+        <input
+          type="tel"
+          name="number"
+          id={telInputId}
+          value={number}
+          onChange={handleChange}
+          className={styles.inputForm}
+        />
+      </label>
+      <button type="submit" className={styles.buttonForm}>
+        Add contact
+      </button>
+    </form>
+  );
 }
 
 ContactForm.propTypes = {
   name: PropTypes.string,
   number: PropTypes.number,
 };
-
-const mapDispatchToProps = dispatch => ({
-  onSubmit: contact => dispatch(operations.addContact(contact)),
-});
-
-export default connect(null, mapDispatchToProps)(ContactForm);

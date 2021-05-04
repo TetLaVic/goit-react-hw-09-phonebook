@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import ContactListItem from './ContactListItem/ContactListItem';
-import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import operations from '../../redux/ContactForm/ContactForm-operations';
@@ -33,7 +32,3 @@ export default function ContactList() {
     </ul>
   );
 }
-
-ContactList.propTypes = {
-  onDeleteContact: PropTypes.func.isRequired,
-};

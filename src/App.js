@@ -36,14 +36,18 @@ export default function App() {
       <AppBar />
       <Suspense fallback={<p>Loading...</p>}>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <PublicRoute
-            exact
-            path="/register"
-            restricted
-            component={RegisterPage}
-          />
-          <PublicRoute exact path="/login" restricted component={LoginPage} />
+          <PublicRoute exact path="/">
+            <HomePage />
+          </PublicRoute>
+
+          <PublicRoute exact path="/register" restricted>
+            <RegisterPage />
+          </PublicRoute>
+
+          <PublicRoute exact path="/login" restricted>
+            <LoginPage />
+          </PublicRoute>
+
           <PrivateRoute exact path="/contacts" component={ContactsPage} />
           <Route component={HomePage} />
         </Switch>
