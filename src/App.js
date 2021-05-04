@@ -48,7 +48,9 @@ export default function App() {
             <LoginPage />
           </PublicRoute>
 
-          <PrivateRoute exact path="/contacts" component={ContactsPage} />
+          <PrivateRoute exact path="/contacts">
+            <ContactsPage />
+          </PrivateRoute>
           <Route component={HomePage} />
         </Switch>
       </Suspense>
