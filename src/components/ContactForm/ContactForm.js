@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { v4 as genId } from 'uuid';
 import PropTypes from 'prop-types';
 import styles from './ContactForm.module.css';
 import { useDispatch } from 'react-redux';
 import operations from '../../redux/ContactForm/ContactForm-operations';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -48,38 +49,33 @@ export default function ContactForm() {
     [onSubmit, name, number],
   );
 
-  const nameInputId = genId();
-  const telInputId = genId();
-
   return (
-    <form onSubmit={handleSubmit} className={styles.contactForm}>
-      <label htmlFor={nameInputId} className={styles.labelForm}>
-        Name
-        <input
-          type="text"
+    <Form onSubmit={handleSubmit} className={styles.Form}>
+      <Form.Group controlId="formBasicName">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
+          type="name"
           name="name"
-          id={nameInputId}
           value={name}
+          placeholder="Enter name"
           onChange={handleChange}
-          className={styles.inputForm}
         />
-      </label>
+      </Form.Group>
 
-      <label htmlFor={telInputId} className={styles.labelForm}>
-        Number
-        <input
+      <Form.Group controlId="formBasicNumber">
+        <Form.Label>Number</Form.Label>
+        <Form.Control
           type="tel"
           name="number"
-          id={telInputId}
+          placeholder="Enter phone number"
           value={number}
           onChange={handleChange}
-          className={styles.inputForm}
         />
-      </label>
-      <button type="submit" className={styles.buttonForm}>
+      </Form.Group>
+      <Button variant="primary" type="submit">
         Add contact
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 

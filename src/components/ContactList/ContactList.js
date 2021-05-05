@@ -4,6 +4,7 @@ import styles from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import operations from '../../redux/ContactForm/ContactForm-operations';
 import selectors from '../../redux/ContactForm/ContactForm-selectors';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 export default function ContactList() {
   const contactsList = useSelector(selectors.getContacts);
@@ -16,7 +17,7 @@ export default function ContactList() {
   }, [dispatch]);
 
   return (
-    <ul>
+    <ListGroup className={styles.ListGroup}>
       {contactsList.map(({ name, number, id }) => {
         return (
           <ContactListItem
@@ -29,6 +30,6 @@ export default function ContactList() {
           />
         );
       })}
-    </ul>
+    </ListGroup>
   );
 }

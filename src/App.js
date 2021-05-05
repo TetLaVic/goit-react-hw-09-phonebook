@@ -2,6 +2,7 @@ import React, { useEffect, Suspense, lazy } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import AppBar from './components/AppBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import ContactsPage from './pages/Contacts';
 // import LoginPage from './pages/Login';
 // import RegisterPage from './pages/Register';

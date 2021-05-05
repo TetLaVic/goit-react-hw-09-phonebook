@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
-import { v4 as genId } from 'uuid';
 import PropTypes from 'prop-types';
-import styles from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/ContactForm/ContactForm-actions';
 import selectors from '../../redux/ContactForm/ContactForm-selectors';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
 
 export default function Filter() {
   const filterState = useSelector(selectors.getFilter);
@@ -13,20 +14,19 @@ export default function Filter() {
     event => dispatch(actions.filterChange(event.target.value)),
     [dispatch],
   );
-  const filterInputId = genId();
 
   return (
-    <label htmlFor={filterInputId} className={styles.labelFilter}>
-      Find contacts by name
-      <input
+    <Form inline>
+      <FormControl
         type="text"
         name="filter"
-        id={filterInputId}
         value={filterState}
         onChange={onFilterChange}
-        className={styles.inputFilter}
+        placeholder="Search"
+        className="mr-sm-2"
       />
-    </label>
+      <Button variant="primary">Search</Button>
+    </Form>
   );
 }
 

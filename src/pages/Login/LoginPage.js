@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { v4 as genId } from 'uuid';
 import authOperations from '../../redux/auth/auth-operations';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import styles from './LoginPage.module.css';
 
 function LoginPage({ onLogin }) {
-  // state = { email: '', password: '' };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const reset = () => {
-    // this.setState({ email: '', password: '' });
     setEmail('');
     setPassword('');
   };
@@ -38,35 +38,35 @@ function LoginPage({ onLogin }) {
     reset();
   };
 
-  const emailInputId = genId();
-  const passwordInputId = genId();
   return (
     <>
       <h2>Login page</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor={emailInputId}>
-          Email
-          <input
-            type="emal"
+      <Form onSubmit={handleSubmit} className={styles.Form}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
             name="email"
-            id={emailInputId}
             value={email}
+            placeholder="Enter email"
             onChange={handleChange}
           />
-        </label>
+        </Form.Group>
 
-        <label htmlFor={passwordInputId}>
-          Password
-          <input
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
             name="password"
-            id={passwordInputId}
+            placeholder="Password"
             value={password}
             onChange={handleChange}
           />
-        </label>
-        <button type="submit">Sign in</button>
-      </form>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </>
   );
 }

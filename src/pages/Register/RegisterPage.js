@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { v4 as genId } from 'uuid';
 import authOperations from '../../redux/auth/auth-operations';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import styles from './RegisterPage.module.css';
 
 function RegisterPage({ onRegister }) {
   const [name, setName] = useState('');
@@ -50,40 +53,43 @@ function RegisterPage({ onRegister }) {
   return (
     <>
       <h2>Registration page</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor={nameInputId}>
-          Name
-          <input
-            type="text"
+      <Form onSubmit={handleSubmit} className={styles.Form}>
+        <Form.Group controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="name"
             name="name"
-            id={nameInputId}
             value={name}
+            placeholder="Enter name"
             onChange={handleChange}
           />
-        </label>
-        <label htmlFor={emailInputId}>
-          Email
-          <input
+        </Form.Group>
+
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
             type="email"
             name="email"
-            id={emailInputId}
             value={email}
+            placeholder="Enter email"
             onChange={handleChange}
           />
-        </label>
+        </Form.Group>
 
-        <label htmlFor={passwordInputId}>
-          Password
-          <input
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
             type="password"
             name="password"
-            id={passwordInputId}
+            placeholder="Enter password"
             value={password}
             onChange={handleChange}
           />
-        </label>
-        <button type="submit">Register</button>
-      </form>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
     </>
   );
 }

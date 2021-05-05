@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import authSelectors from '../../redux/auth/auth-selectors';
 import authOperations from '../../redux/auth/auth-operations';
 import avatar from './avatar.png';
+import Button from 'react-bootstrap/Button';
+import styles from './UserMenu.module.css';
 // import cntx from '../context/authContext';
 
 export default function UserMenu() {
@@ -15,12 +17,17 @@ export default function UserMenu() {
   // const { user, login, logout } = useContext(cntx);
 
   return (
-    <div>
-      <img src={avatar} alt="" width="32" />
+    <div style={{ marginLeft: 'auto', width: 'auto' }}>
+      <img src={avatar} className={styles.Avatar} alt="" width="32" />
       <span>Welcome, {name}</span>
-      <button type="button" onClick={onLogout}>
+      <Button
+        type="button"
+        onClick={onLogout}
+        className={styles.Button}
+        variant="warning"
+      >
         Logout
-      </button>
+      </Button>
     </div>
   );
 }
