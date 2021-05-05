@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import authSelectors from '../../redux/auth/auth-selectors';
 import authOperations from '../../redux/auth/auth-operations';
 import avatar from './avatar.png';
+// import cntx from '../context/authContext';
 
 export default function UserMenu() {
   const name = useSelector(authSelectors.getUserName);
@@ -10,6 +11,8 @@ export default function UserMenu() {
   const onLogout = useCallback(() => dispatch(authOperations.logout()), [
     dispatch,
   ]);
+
+  // const { user, login, logout } = useContext(cntx);
 
   return (
     <div>
