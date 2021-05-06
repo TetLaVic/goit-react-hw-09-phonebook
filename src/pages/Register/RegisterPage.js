@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, connect } from 'react-redux';
-import { v4 as genId } from 'uuid';
 import authOperations from '../../redux/auth/auth-operations';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -20,25 +19,19 @@ function RegisterPage({ onRegister }) {
   // const dispatch = useDispatch();
 
   // const onRegister = () => dispatch(authOperations.register);
-  const handleChange = event => {
+  const handleNameChange = event => {
     event.preventDefault();
-    const { name, value } = event.currentTarget;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
+    setName(event.target.value);
+  };
 
-      case 'email':
-        setEmail(value);
-        break;
+  const handleEmailChange = event => {
+    event.preventDefault();
+    setEmail(event.target.value);
+  };
 
-      case 'password':
-        setPassword(value);
-        break;
-
-      default:
-        console.warn(`Field with a type ${name} cannot be processed.`);
-    }
+  const handlePasswordChange = event => {
+    event.preventDefault();
+    setPassword(event.target.value);
   };
 
   const handleSubmit = event => {
@@ -47,9 +40,6 @@ function RegisterPage({ onRegister }) {
     reset();
   };
 
-  const nameInputId = genId();
-  const emailInputId = genId();
-  const passwordInputId = genId();
   return (
     <>
       <h2>Registration page</h2>
@@ -61,7 +51,7 @@ function RegisterPage({ onRegister }) {
             name="name"
             value={name}
             placeholder="Enter name"
-            onChange={handleChange}
+            onChange={handleNameChange}
           />
         </Form.Group>
 
@@ -72,7 +62,7 @@ function RegisterPage({ onRegister }) {
             name="email"
             value={email}
             placeholder="Enter email"
-            onChange={handleChange}
+            onChange={handleEmailChange}
           />
         </Form.Group>
 
@@ -83,7 +73,7 @@ function RegisterPage({ onRegister }) {
             name="password"
             placeholder="Enter password"
             value={password}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">

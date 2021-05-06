@@ -22,22 +22,16 @@ export default function ContactForm() {
     setNumber('');
   };
 
-  const handleChange = event => {
+  const handleNameChange = event => {
     event.preventDefault();
-    const { name, value } = event.currentTarget;
+    // const { name, value } = event.currentTarget;
+    setName(event.target.value);
+  };
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-
-      case 'number':
-        setNumber(value);
-        break;
-
-      default:
-        console.warn(`Field with a type ${name} cannot be processed.`);
-    }
+  const handleNumberChange = event => {
+    event.preventDefault();
+    // const { name, value } = event.currentTarget;
+    setNumber(event.target.value);
   };
 
   const handleSubmit = useCallback(
@@ -58,7 +52,7 @@ export default function ContactForm() {
           name="name"
           value={name}
           placeholder="Enter name"
-          onChange={handleChange}
+          onChange={handleNameChange}
         />
       </Form.Group>
 
@@ -69,7 +63,7 @@ export default function ContactForm() {
           name="number"
           placeholder="Enter phone number"
           value={number}
-          onChange={handleChange}
+          onChange={handleNumberChange}
         />
       </Form.Group>
       <Button variant="primary" type="submit">
@@ -81,5 +75,5 @@ export default function ContactForm() {
 
 ContactForm.propTypes = {
   name: PropTypes.string,
-  number: PropTypes.number,
+  number: PropTypes.string,
 };

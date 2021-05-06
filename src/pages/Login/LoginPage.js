@@ -14,22 +14,14 @@ function LoginPage({ onLogin }) {
     setPassword('');
   };
 
-  const handleChange = event => {
+  const handleEmailChange = event => {
     event.preventDefault();
-    const { name, value } = event.currentTarget;
+    setEmail(event.target.value);
+  };
 
-    switch (name) {
-      case 'email':
-        setEmail(value);
-        break;
-
-      case 'password':
-        setPassword(value);
-        break;
-
-      default:
-        console.warn(`Field with a type ${name} cannot be processed.`);
-    }
+  const handlePasswordChange = event => {
+    event.preventDefault();
+    setPassword(event.target.value);
   };
 
   const handleSubmit = event => {
@@ -49,7 +41,7 @@ function LoginPage({ onLogin }) {
             name="email"
             value={email}
             placeholder="Enter email"
-            onChange={handleChange}
+            onChange={handleEmailChange}
           />
         </Form.Group>
 
@@ -60,7 +52,7 @@ function LoginPage({ onLogin }) {
             name="password"
             placeholder="Password"
             value={password}
-            onChange={handleChange}
+            onChange={handlePasswordChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
