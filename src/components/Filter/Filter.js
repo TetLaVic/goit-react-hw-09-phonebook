@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 export default function Filter() {
   const filterState = useSelector(selectors.getFilter);
   const dispatch = useDispatch();
+
   const onFilterChange = useCallback(
     event => dispatch(actions.filterChange(event.target.value)),
     [dispatch],

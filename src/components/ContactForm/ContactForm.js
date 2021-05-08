@@ -7,8 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 export default function ContactForm() {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [contact, setContact] = useState({ name: '', number: '' });
 
   const dispatch = useDispatch();
 
@@ -18,29 +17,22 @@ export default function ContactForm() {
   );
 
   const reset = () => {
-    setName('');
-    setNumber('');
+    setContact({ name: '', number: '' });
   };
 
-  const handleNameChange = event => {
+  const handleChange = event => {
     event.preventDefault();
-    // const { name, value } = event.currentTarget;
-    setName(event.target.value);
-  };
-
-  const handleNumberChange = event => {
-    event.preventDefault();
-    // const { name, value } = event.currentTarget;
-    setNumber(event.target.value);
+    const { name, value } = event.target;
+    setContact(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = useCallback(
     event => {
       event.preventDefault();
-      onSubmit({ name, number });
+      onSubmit(contact);
       reset();
     },
-    [onSubmit, name, number],
+    [onSubmit, contact],
   );
 
   return (
@@ -50,9 +42,9 @@ export default function ContactForm() {
         <Form.Control
           type="name"
           name="name"
-          value={name}
+          value={contact.name}
           placeholder="Enter name"
-          onChange={handleNameChange}
+          onChange={handleChange}
         />
       </Form.Group>
 
@@ -62,8 +54,8 @@ export default function ContactForm() {
           type="tel"
           name="number"
           placeholder="Enter phone number"
-          value={number}
-          onChange={handleNumberChange}
+          value={contact.number}
+          onChange={handleChange}
         />
       </Form.Group>
       <Button variant="primary" type="submit">

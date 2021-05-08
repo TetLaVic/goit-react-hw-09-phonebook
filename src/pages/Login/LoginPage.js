@@ -6,27 +6,24 @@ import Form from 'react-bootstrap/Form';
 import styles from './LoginPage.module.css';
 
 function LoginPage({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = event => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    setUser(prev => ({ ...prev, [name]: value }));
+  };
 
   const reset = () => {
-    setEmail('');
-    setPassword('');
-  };
-
-  const handleEmailChange = event => {
-    event.preventDefault();
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = event => {
-    event.preventDefault();
-    setPassword(event.target.value);
+    setUser({ email: '', password: '' });
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    onLogin({ email, password });
+    onLogin(user);
     reset();
   };
 
@@ -39,9 +36,9 @@ function LoginPage({ onLogin }) {
           <Form.Control
             type="email"
             name="email"
-            value={email}
+            value={user.email}
             placeholder="Enter email"
-            onChange={handleEmailChange}
+            onChange={handleChange}
           />
         </Form.Group>
 
@@ -51,8 +48,8 @@ function LoginPage({ onLogin }) {
             type="password"
             name="password"
             placeholder="Password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={user.password}
+            onChange={handleChange}
           />
         </Form.Group>
         <Button variant="primary" type="submit">
